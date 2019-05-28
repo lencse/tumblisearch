@@ -1,0 +1,9 @@
+{
+    "ignore": [
+        "src",
+        "public",
+        ".DS_Store",
+        ".git",
+        "logs"
+    ]
+}
