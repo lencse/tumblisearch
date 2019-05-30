@@ -38,15 +38,15 @@ test: test_ts test_compiled
 verify: lint test
 
 test_compiled: $(COMPILE) node_modules
-	jest --config jest.config.compiled.js
+	$(BIN)/jest --config jest.config.compiled.js
 
 lint: node_modules
 	$(BIN)/tslint -c tslint.json -p .
 
 lint_fix: node_modules
-	tslint -c tslint.json --fix -p .
+	$(BIN)/tslint -c tslint.json --fix -p .
 
 dev: lint_fix verify
 
 watch_test: node_modules
-	jest --config jest.config.dev.js --watch
+	$(BIN)/jest --config jest.config.dev.js --watch
