@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+    # queue:
+    #     build: ./docker/php
+    #     volumes:
+    #         - .:/app
+    #     working_dir: /app/queue
+    #     links:
+    #         - rabbitmq
+    #         - mongodb
+    #     depends_on:
+    #         - rabbitmq
+    #         - mongodb
+    #     command:
+    #         - /app/queue/init-queue.sh
+    rabbitmq:
+        image: rabbitmq:3-management
+        hostname: 'rabbitmq'
+        environment:
+            RABBITMQ_DEFAULT_USER: rabbitmq
+            RABBITMQ_DEFAULT_PASS: rabbitmq
+        ports:
+            - '15672:15672'
+        labels:
+            NAME: rabbitmq
+        volumes:
+            - ./docker/rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins
+    sql:
+        image: postgres:latest
+        volumes:
+            - db-data:/var/lib/postgresql/data
+            - .:/app
+        ports:
+            - 6805:5432
+
+volumes:
+    db-data:
+        driver: local

@@ -1,0 +1,36 @@
+{
+  "name": "tumblisearch",
+  "version": "1.0.0",
+  "description": "Tumblr search",
+  "main": "server.js",
+  "repository": "git@github.com:lencse/tumblisearch.git",
+  "author": "Levente Löki <leventeloki@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "engines": {
+    "node": "^10.15.0"
+  },
+  "dependencies": {
+    "dotenv": "^8.0.0",
+    "inversify": "^5.0.1",
+    "pg": "^7.11.0",
+    "reflect-metadata": "^0.1.13",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^6.1.1",
+    "@types/jest": "^24.0.13",
+    "@types/pg": "^7.4.14",
+    "@types/uuid": "^3.4.4",
+    "coveralls": "^3.0.3",
+    "db-migrate": "^0.11.5",
+    "db-migrate-pg": "^0.5.1",
+    "jest": "^24.8.0",
+    "jest-sonar-reporter": "^2.0.0",
+    "nodemon": "^1.19.1",
+    "pg-native": "^3.0.0",
+    "ts-jest": "^24.0.2",
+    "tslint": "^5.16.0",
+    "typescript": "^3.5.1"
+  }
+}
