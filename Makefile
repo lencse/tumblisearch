@@ -1,5 +1,5 @@
 .PHONY: test migrate dev clean watch test lint test_ts test test_compiled
-.PHONY: lint_fix init watch_test
+.PHONY: lint_fix init watch_test verify
 
 BIN=node_modules/.bin
 COMPILE=build/compile
@@ -33,7 +33,9 @@ watch: $(COMPILE)
 test_ts: node_modules
 	$(BIN)/jest --verbose && mv test-report.xml logs/jest
 
-test: test_ts test_compiled lint
+test: test_ts test_compiled
+
+verify: lint test
 
 test_compiled: $(COMPILE) node_modules
 	jest --config jest.config.compiled.js
@@ -44,10 +46,7 @@ lint: node_modules
 lint_fix: node_modules
 	tslint -c tslint.json --fix -p .
 
-dev: lint_fix lint test
+dev: lint_fix verify
 
 watch_test: node_modules
 	jest --config jest.config.dev.js --watch
-
-$(BIN):
-	echo 1
