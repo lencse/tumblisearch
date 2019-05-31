@@ -4,7 +4,7 @@ import CreateSearch from '../../../../src/server/search/CreateSearch'
 import SearchFactory from '../../../../src/server/search/SearchFactory'
 
 describe('CreateSearch', () => {
-    it('Entry is created after the request', async () => {
+    it('Search is created after the request', async () => {
         const saver = {
             entry: null,
             async saveSearch(data: SearchSavingData): Promise<SearchData> {

@@ -10,5 +10,18 @@ describe('ServerTest', () => {
 
         expect(pub.status).toBe(200)
 
+        const resp = await testServer.post('/api/search')
+            .send(`blogName=staff`)
+            .send(`searchText=Joo Han`)
+
+        const id = resp.body.id
+
+        expect(resp.body).toEqual({
+            id,
+            params: {
+                blogName: 'staff',
+                searchText: 'Joo Han'
+            }
+        })
     })
 })

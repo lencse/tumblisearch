@@ -21,7 +21,6 @@ export default class PgSearchSaver extends PgDatabase implements SearchSaver {
             )
             RETURNING
                 id,
-                search_date,
                 blog_name,
                 search_text
             `, [
