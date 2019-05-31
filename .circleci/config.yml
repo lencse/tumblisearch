@@ -36,6 +36,6 @@ jobs:
                     - node_modules
                 key: v1-dependencies-{{ checksum "yarn.lock" }}
 
-            - make migrate
+            - run: make migrate
 
             - run: make verify
