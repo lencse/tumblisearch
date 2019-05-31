@@ -1,12 +1,5 @@
+import dic from './dic/dic'
+
 export function server() {
-    return {
-        init() {
-            return {
-                run() {
-                    console.info('Server started')
-                    return 1
-                }
-            }
-        }
-    }
+    return dic.server
 }
