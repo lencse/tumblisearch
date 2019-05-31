@@ -1,5 +1,5 @@
 .PHONY: test migrate dev clean watch test lint test_ts test test_compiled
-.PHONY: lint_fix init watch_test verify
+.PHONY: lint_fix init watch_test verify $(COMPILE)
 
 BIN=node_modules/.bin
 COMPILE=build/compile

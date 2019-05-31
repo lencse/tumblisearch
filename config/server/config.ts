@@ -4,9 +4,9 @@ dotenv()
 
 const config = {
 
-    portNumber: Number(process.env.PORT)
+    portNumber: Number(process.env.PORT),
 
-    // dbUrl: String(process.env.DATABASE_URL)
+    dbUrl: String(process.env.DATABASE_URL)
 
 }
 

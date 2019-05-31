@@ -41,6 +41,20 @@ export default class KoaWebserver implements Webserver {
     }
 
     public createSearch(handler: CreateSearch): void {
+        this.router.post(
+            '/api/search',
+            koaBody({multipart: true}),
+            async (ctx: Koa.Context, next) => {
+                const search = await handler.handle({
+                    date: new Date(),
+                    params: {
+                        blogName: ctx.request.body.blogName,
+                        searchText: ctx.request.body.searchText
+                    }
+                })
+                ctx.body = search
+            }
+        )
     }
 
 }
