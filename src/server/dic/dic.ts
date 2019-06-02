@@ -14,27 +14,21 @@ import SearchFactory from '../search/SearchFactory'
 
 const container = new Container()
 
-function initInterfaces(): void {
-    container.bind<Webserver>(TYPES.Webserver).to(KoaWebserver)
-    container.bind<SearchSaver>(TYPES.SearchSaver).to(PgSearchSaver)
-    container.bind<IdGenerator>(TYPES.IdGenerator).to(UuidGenerator)
-}
+// Interfaces
+container.bind<Webserver>(TYPES.Webserver).to(KoaWebserver)
+container.bind<SearchSaver>(TYPES.SearchSaver).to(PgSearchSaver)
+container.bind<IdGenerator>(TYPES.IdGenerator).to(UuidGenerator)
 
-function initClasses(): void {
-    container.bind<Server>(Server).to(Server)
-    container.bind<CreateSearch>(CreateSearch).to(CreateSearch)
-    container.bind<PgConnection>(PgConnection).to(PgConnection)
-    container.bind<SearchFactory>(SearchFactory).to(SearchFactory)
-}
+// Classes
+container.bind<Server>(Server).to(Server)
+container.bind<CreateSearch>(CreateSearch).to(CreateSearch)
+container.bind<PgConnection>(PgConnection).to(PgConnection)
+container.bind<SearchFactory>(SearchFactory).to(SearchFactory)
 
-function initScalars(): void {
-    container.bind<number>(SCALARS.Webserver.portNumber).toConstantValue(config.portNumber)
-    container.bind<string>(SCALARS.PgConnection.dbUrl).toConstantValue(config.dbUrl)
-}
-
-initInterfaces()
-initClasses()
-initScalars()
+// Scalars
+container.bind<number>(SCALARS.Webserver.portNumber).toConstantValue(config.portNumber)
+container.bind<string>(SCALARS.PgConnection.dbUrl).toConstantValue(config.dbUrl)
+container.bind<string>(SCALARS.Tumblr.apiKey).toConstantValue(config.tumblrApiKey)
 
 const dic = {
     get server(): Server {

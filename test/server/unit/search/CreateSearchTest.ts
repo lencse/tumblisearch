@@ -31,7 +31,9 @@ describe('CreateSearch', () => {
         })
 
         expect(result.id).toEqual('TEST')
-        expect(result.params.blogName).toEqual('test')
-        expect(result.params.searchText).toEqual('search text')
+        expect(result.params).toEqual({
+            blogName: 'test',
+            searchText: 'search text'
+        })
     })
 })
