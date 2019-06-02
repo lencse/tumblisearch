@@ -12,40 +12,34 @@ import IdGenerator from '../id/IdGenerator'
 import UuidGenerator from '../id/UuidGenerator'
 import SearchFactory from '../search/SearchFactory'
 
-class DIC {
+const container = new Container()
 
-    private container: Container = new Container()
-
-    constructor() {
-        this.initInterfaces()
-        this.initClasses()
-        this.initScalars()
-    }
-
-    private initInterfaces() {
-        this.container.bind<Webserver>(TYPES.Webserver).to(KoaWebserver)
-        this.container.bind<SearchSaver>(TYPES.SearchSaver).to(PgSearchSaver)
-        this.container.bind<IdGenerator>(TYPES.IdGenerator).to(UuidGenerator)
-    }
-
-    private initClasses() {
-        this.container.bind<Server>(Server).to(Server)
-        this.container.bind<CreateSearch>(CreateSearch).to(CreateSearch)
-        this.container.bind<PgConnection>(PgConnection).to(PgConnection)
-        this.container.bind<SearchFactory>(SearchFactory).to(SearchFactory)
-    }
-
-    private initScalars(): void {
-        this.container.bind<number>(SCALARS.Webserver.portNumber).toConstantValue(config.portNumber)
-        this.container.bind<string>(SCALARS.PgConnection.dbUrl).toConstantValue(config.dbUrl)
-    }
-
-    public get server(): Server {
-        return this.container.get<Server>(Server)
-    }
-
+function initInterfaces(): void {
+    container.bind<Webserver>(TYPES.Webserver).to(KoaWebserver)
+    container.bind<SearchSaver>(TYPES.SearchSaver).to(PgSearchSaver)
+    container.bind<IdGenerator>(TYPES.IdGenerator).to(UuidGenerator)
 }
 
-const dic = new DIC()
+function initClasses(): void {
+    container.bind<Server>(Server).to(Server)
+    container.bind<CreateSearch>(CreateSearch).to(CreateSearch)
+    container.bind<PgConnection>(PgConnection).to(PgConnection)
+    container.bind<SearchFactory>(SearchFactory).to(SearchFactory)
+}
+
+function initScalars(): void {
+    container.bind<number>(SCALARS.Webserver.portNumber).toConstantValue(config.portNumber)
+    container.bind<string>(SCALARS.PgConnection.dbUrl).toConstantValue(config.dbUrl)
+}
+
+initInterfaces()
+initClasses()
+initScalars()
+
+const dic = {
+    get server(): Server {
+        return container.get<Server>(Server)
+    }
+}
 
 export default dic
