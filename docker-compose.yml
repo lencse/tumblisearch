@@ -1,19 +1,16 @@
 version: '3'
 
 services:
-    # queue:
-    #     build: ./docker/php
-    #     volumes:
-    #         - .:/app
-    #     working_dir: /app/queue
-    #     links:
-    #         - rabbitmq
-    #         - mongodb
-    #     depends_on:
-    #         - rabbitmq
-    #         - mongodb
-    #     command:
-    #         - /app/queue/init-queue.sh
+    queue:
+        image: node:10-alpine
+        volumes:
+            - .:/app
+        links:
+            - rabbitmq
+            - sql
+        depends_on:
+            - rabbitmq
+            - sql
     rabbitmq:
         image: rabbitmq:3-management
         hostname: 'rabbitmq'

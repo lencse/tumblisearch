@@ -6,6 +6,8 @@ import SearchFactory from './SearchFactory'
 import CreateSearchRequest from './CreateSearchRequest'
 import Search from './Search'
 import IdGenerator from '../id/IdGenerator'
+import JobSaver from '../jobs/JobSaver'
+import BlogInfo from '../jobs/BlogInfo'
 
 @injectable()
 export default class CreateSearch {
@@ -13,6 +15,7 @@ export default class CreateSearch {
     constructor(
         @inject(TYPES.SearchSaver) private saver: SearchSaver,
         @inject(TYPES.IdGenerator) private idGenerator: IdGenerator,
+        @inject(TYPES.JobSaver) private jobSaver: JobSaver,
         @inject(SearchFactory) private searchFactory: SearchFactory
     ) {}
 
@@ -22,7 +25,9 @@ export default class CreateSearch {
             date: request.date,
             params: request.params
         })
-        return this.searchFactory.fromData(data)
+        const search = this.searchFactory.fromData(data)
+        await this.jobSaver.saveJob(new BlogInfo(search))
+        return search
     }
 
 }

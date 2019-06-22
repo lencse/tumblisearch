@@ -11,6 +11,8 @@ import PgConnection from '../db/PgConnection'
 import IdGenerator from '../id/IdGenerator'
 import UuidGenerator from '../id/UuidGenerator'
 import SearchFactory from '../search/SearchFactory'
+import JobSaver from '../jobs/JobSaver'
+import RabbitJobSaver from '../jobs/RabbitJobSaver'
 
 const container = new Container()
 
@@ -18,6 +20,7 @@ const container = new Container()
 container.bind<Webserver>(TYPES.Webserver).to(KoaWebserver)
 container.bind<SearchSaver>(TYPES.SearchSaver).to(PgSearchSaver)
 container.bind<IdGenerator>(TYPES.IdGenerator).to(UuidGenerator)
+container.bind<JobSaver>(TYPES.JobSaver).to(RabbitJobSaver)
 
 // Classes
 container.bind<Server>(Server).to(Server)
