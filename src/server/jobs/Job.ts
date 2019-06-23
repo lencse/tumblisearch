@@ -1,6 +1,5 @@
 import Search from '../search/Search'
 import JobRunner from './JobRunner'
-import { type } from 'os'
 import JobData from './JobData'
 
 export default interface Job {

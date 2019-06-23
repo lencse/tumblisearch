@@ -1,7 +1,6 @@
 import JobSaver from './JobSaver'
-import Job from './Job'
 import * as amqplib from 'amqplib'
-import { inject, injectable } from 'inversify'
+import { injectable } from 'inversify'
 import 'reflect-metadata'
 import JobData from './JobData'
 
