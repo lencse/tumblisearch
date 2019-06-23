@@ -6,15 +6,15 @@ import JobData from './JobData'
 export default class FetchPosts implements Job {
 
     constructor(
-        private search: Search,
+        private _search: Search,
         private offset: number
     ) {}
 
-    public getSearch(): Search {
-        return this.search
+    public get search(): Search {
+        return this._search
     }
 
-    public getParams(): any {
+    public get params(): any {
         return { offset: this.offset}
     }
 
@@ -22,14 +22,14 @@ export default class FetchPosts implements Job {
         return runner.fetchPosts(this)
     }
 
-    public type(): string {
+    public get type(): string {
         return 'fetch_posts'
     }
 
-    public data(): JobData {
+    public get data(): JobData {
         return {
-            jobType: this.type(),
-            params: this.getParams(),
+            jobType: this.type,
+            params: this.params,
             searchId: this.search.id,
             searchParams: this.search.params
         }

@@ -6,14 +6,14 @@ import JobData from './JobData'
 export default class BlogInfo implements Job {
 
     constructor(
-        private search: Search
+        private _search: Search
     ) {}
 
-    public getSearch(): Search {
-        return this.search
+    public get search(): Search {
+        return this._search
     }
 
-    public getParams(): any {
+    public get params(): any {
         return null
     }
 
@@ -21,14 +21,14 @@ export default class BlogInfo implements Job {
         return runner.getBlogInfo(this)
     }
 
-    public type(): string {
+    public get type(): string {
         return 'blog_info'
     }
 
-    public data(): JobData {
+    public get data(): JobData {
         return {
-            jobType: this.type(),
-            params: this.getParams(),
+            jobType: this.type,
+            params: this.params,
             searchId: this.search.id,
             searchParams: this.search.params
         }

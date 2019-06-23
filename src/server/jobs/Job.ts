@@ -4,14 +4,11 @@ import JobData from './JobData'
 
 export default interface Job {
 
-    getSearch(): Search,
-
-    getParams(): any
+    search: Search,
+    params: any
+    type: string
+    data: JobData
 
     run(runner: JobRunner): Promise<void>
-
-    type(): string
-
-    data(): JobData
 
 }
