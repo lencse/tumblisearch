@@ -4,7 +4,7 @@ import dic from '../../../src/server/dic/dic'
 describe('ServerTest', () => {
     it('Server is working fine', async () => {
         const server = dic.server.init()
-        const testServer = supertest(server.app.callback())
+        const testServer = supertest(server.webApp.callback())
 
         const pub = await testServer.get('/')
 

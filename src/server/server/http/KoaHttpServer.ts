@@ -5,12 +5,12 @@ import * as json from 'koa-json'
 import * as serve from 'koa-static'
 import 'reflect-metadata'
 import { injectable } from 'inversify'
-import Webserver from './Webserver'
+import HttpServer from './HttpServer'
 import * as koaBody from 'koa-body'
-import CreateSearch from '../search/CreateSearch'
+import CreateSearch from '../../search/CreateSearch'
 
 @injectable()
-export default class KoaWebserver implements Webserver {
+export default class KoaHttpServer implements HttpServer {
 
     private koa: Koa
 
