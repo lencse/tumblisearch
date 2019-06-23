@@ -1,7 +1,7 @@
 
 var amqp = require('amqplib/callback_api');
 
-amqp.connect('amqp://rabbitmq:rabbitmq@rabbitmq', function(error0, connection) {
+amqp.connect('amqp://rabbitmq:rabbitmq@localhost', function(error0, connection) {
     if (error0) {
         throw error0;
     }
@@ -10,7 +10,7 @@ amqp.connect('amqp://rabbitmq:rabbitmq@rabbitmq', function(error0, connection) {
             throw error1;
         }
 
-        var queue = 'hello';
+        var queue = 'xx';
         var msg = 'Hello World!';
 
         channel.assertQueue(queue, {

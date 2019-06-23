@@ -26,7 +26,7 @@ export default class CreateSearch {
             params: request.params
         })
         const search = this.searchFactory.fromData(data)
-        await this.jobSaver.saveJob(new BlogInfo(search))
+        await this.jobSaver.saveJob(new BlogInfo(search).data())
         return search
     }
 

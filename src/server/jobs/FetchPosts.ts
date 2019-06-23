@@ -1,6 +1,7 @@
 import Job from './Job'
 import Search from '../search/Search'
 import JobRunner from './JobRunner'
+import JobData from './JobData'
 
 export default class FetchPosts implements Job {
 
@@ -19,6 +20,19 @@ export default class FetchPosts implements Job {
 
     public async run(runner: JobRunner): Promise<void> {
         return runner.fetchPosts(this)
+    }
+
+    public type(): string {
+        return 'fetch_posts'
+    }
+
+    public data(): JobData {
+        return {
+            jobType: this.type(),
+            params: this.getParams(),
+            searchId: this.search.id,
+            searchParams: this.search.params
+        }
     }
 
 }

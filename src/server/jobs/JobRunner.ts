@@ -22,7 +22,7 @@ export default class JobRunner {
             .then((slices) => range(0, slices).map((slice) => slice * 50))
 
         offsets.forEach(async (offset) => {
-            await this.jobSaver.saveJob(new FetchPosts(job.getSearch(), offset))
+            await this.jobSaver.saveJob(new FetchPosts(job.getSearch(), offset).data())
         })
     }
 

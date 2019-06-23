@@ -3,6 +3,7 @@ import SearchData from '../../../../src/server/search/SearchData'
 import CreateSearch from '../../../../src/server/search/CreateSearch'
 import SearchFactory from '../../../../src/server/search/SearchFactory'
 import Job from '../../../../src/server/jobs/Job'
+import JobData from '../../../../src/server/jobs/JobData'
 
 describe('CreateSearch', () => {
     it('Search is created after the request', async () => {
@@ -21,7 +22,7 @@ describe('CreateSearch', () => {
                 }
             },
             {
-                async saveJob(job: Job): Promise<void> {
+                async saveJob(jobData: JobData): Promise<void> {
                 }
             },
             new SearchFactory()

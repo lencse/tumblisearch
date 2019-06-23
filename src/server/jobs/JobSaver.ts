@@ -1,7 +1,8 @@
 import Job from './Job'
+import JobData from './JobData'
 
 export default interface JobSaver {
 
-    saveJob(job: Job): Promise<void>
+    saveJob(job: JobData): Promise<void>
 
 }

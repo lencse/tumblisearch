@@ -28,8 +28,7 @@ $(COMPILE): src config node_modules
 
 watch: $(COMPILE)
 	$(BIN)/tsc -p . --outDir ./$(COMPILE) --watch --pretty & \
-	$(BIN)/nodemon server.js & \
-	$(BIN)/nodemon queue.js
+	$(BIN)/nodemon server.js
 
 test_ts: node_modules
 	$(BIN)/jest --verbose && mv test-report.xml logs/jest

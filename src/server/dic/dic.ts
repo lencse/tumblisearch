@@ -17,18 +17,21 @@ import RabbitJobSaver from '../jobs/RabbitJobSaver'
 const container = new Container()
 
 // Interfaces
+
 container.bind<Webserver>(TYPES.Webserver).to(KoaWebserver)
 container.bind<SearchSaver>(TYPES.SearchSaver).to(PgSearchSaver)
 container.bind<IdGenerator>(TYPES.IdGenerator).to(UuidGenerator)
 container.bind<JobSaver>(TYPES.JobSaver).to(RabbitJobSaver)
 
 // Classes
+
 container.bind<Server>(Server).to(Server)
 container.bind<CreateSearch>(CreateSearch).to(CreateSearch)
 container.bind<PgConnection>(PgConnection).to(PgConnection)
 container.bind<SearchFactory>(SearchFactory).to(SearchFactory)
 
 // Scalars
+
 container.bind<number>(SCALARS.Webserver.portNumber).toConstantValue(config.portNumber)
 container.bind<string>(SCALARS.PgConnection.dbUrl).toConstantValue(config.dbUrl)
 container.bind<string>(SCALARS.Tumblr.apiKey).toConstantValue(config.tumblrApiKey)
