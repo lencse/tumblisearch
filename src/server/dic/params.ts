@@ -14,5 +14,9 @@ export const SCALARS = {
     },
     Tumblr: {
         apiKey: Symbol('apiKey')
+    },
+    RabbitConnection: {
+        rabbitUrl: Symbol('rabbitUrl'),
+        queueName: Symbol('rabbitUrl')
     }
 }

@@ -5,7 +5,7 @@ import SearchFactory from '../../../../src/server/search/SearchFactory'
 import JobData from '../../../../src/server/jobs/JobData'
 
 describe('CreateSearch', () => {
-    it('Search is created after the request', async () => {
+    it('Search and job is created after the request', async () => {
         const saver = {
             search: null,
             async saveSearch(data: SearchSavingData): Promise<SearchData> {

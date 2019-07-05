@@ -13,6 +13,7 @@ import UuidGenerator from '../id/UuidGenerator'
 import SearchFactory from '../search/SearchFactory'
 import JobSaver from '../jobs/JobSaver'
 import RabbitJobSaver from '../jobs/RabbitJobSaver'
+import RabbitConnection from '../jobs/RabbitConnection'
 
 const container = new Container()
 
@@ -29,12 +30,15 @@ container.bind<WebServer>(WebServer).to(WebServer)
 container.bind<CreateSearch>(CreateSearch).to(CreateSearch)
 container.bind<PgConnection>(PgConnection).to(PgConnection)
 container.bind<SearchFactory>(SearchFactory).to(SearchFactory)
+container.bind<RabbitConnection>(RabbitConnection).to(RabbitConnection)
 
 // Scalars
 
 container.bind<number>(SCALARS.Webserver.portNumber).toConstantValue(config.portNumber)
 container.bind<string>(SCALARS.PgConnection.dbUrl).toConstantValue(config.dbUrl)
 container.bind<string>(SCALARS.Tumblr.apiKey).toConstantValue(config.tumblrApiKey)
+container.bind<string>(SCALARS.RabbitConnection.rabbitUrl).toConstantValue(config.rabbitUrl)
+container.bind<string>(SCALARS.RabbitConnection.queueName).toConstantValue(config.queueName)
 
 const dic = {
     get server(): WebServer {
