@@ -10,12 +10,35 @@ jobs:
               environment:
                 PORT: 5600
                 DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
+                CLOUDAMQP_URL: amqp://rabbitmq:rabbitmq@localhost
 
             - image: circleci/postgres:11-alpine
               environment:
                 POSTGRES_USER: postgres
                 POSTGRES_PASSWORD: postgres
                 POSTGRES_DB: postgres
+
+    # rabbitmq:
+    #     image: rabbitmq:3-management
+    #     hostname: 'localhost'
+    #     environment:
+    #         RABBITMQ_DEFAULT_USER: rabbitmq
+    #         RABBITMQ_DEFAULT_PASS: rabbitmq
+    #     ports:
+    #         - '5672:5672'
+    #         - '15672:15672'
+    #     labels:
+    #         NAME: rabbitmq
+    #     volumes:
+    #         - ./docker/rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins
+
+            - image: rabbitmq:3
+              hostname: 'localhost'
+              environment:
+                RABBITMQ_DEFAULT_USER: rabbitmq
+                RABBITMQ_DEFAULT_PASS: rabbitmq
+              labels:
+                NAME: rabbitmq
 
         working_directory: ~/repo
 
@@ -37,5 +60,7 @@ jobs:
                 key: v1-dependencies-{{ checksum "yarn.lock" }}
 
             - run: make migrate
+
+            - run: sleep 30
 
             - run: make verify
