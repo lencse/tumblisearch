@@ -61,6 +61,4 @@ jobs:
 
             - run: make migrate
 
-            - run: sleep 30
-
             - run: make verify
