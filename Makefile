@@ -1,5 +1,5 @@
 .PHONY: test migrate dev clean watch test lint test_ts test test_compiled
-.PHONY: lint_fix init watch_test verify deploy migrate_prod compile build
+.PHONY: lint_fix init watch_test verify deploy migrate_prod compile
 
 VENDOR=node_modules
 BIN=$(VENDOR)/.bin
@@ -51,8 +51,6 @@ dev: lint_fix verify
 
 watch_test: $(VENDOR)
 	$(BIN)/jest --config jest.config.dev.js --watch
-
-build: compile
 
 compile:
 	$(BIN)/tsc -p . --outDir ./$(COMPILE)
