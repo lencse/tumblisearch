@@ -10,5 +10,5 @@ echo "**************************"
 
 export DEPLOY_STARTED="true"
 
-node_modules/.bin/tsc -p . --outDir ./build/compile
-node_modules/.bin/db-migrate --config db-config.js --env prod up
+make build
+make migrate_prod
