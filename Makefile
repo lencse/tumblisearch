@@ -1,5 +1,5 @@
 .PHONY: test migrate dev clean watch test lint test_ts test test_compiled
-.PHONY: lint_fix init watch_test verify $(COMPILE)
+.PHONY: lint_fix init watch_test verify $(COMPILE) deploy build migrate_prod
 
 BIN=node_modules/.bin
 COMPILE=build/compile
@@ -50,3 +50,12 @@ dev: lint_fix verify
 
 watch_test: node_modules
 	$(BIN)/jest --config jest.config.dev.js --watch
+
+build:
+	$(BIN)/tsc -p . --outDir ./$(COMPILE)
+
+migrate_prod:
+	$(BIN)/db-migrate --config db-config.js --env prod up
+
+deploy:
+	./deploy.sh
