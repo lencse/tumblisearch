@@ -10,5 +10,5 @@ echo "**************************"
 
 export DEPLOY_STARTED="true"
 
-make
+make Build
 make migrate_prod

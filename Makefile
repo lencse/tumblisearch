@@ -1,5 +1,5 @@
 .PHONY: test migrate dev clean watch test lint test_ts test test_compiled
-.PHONY: lint_fix init watch_test verify deploy migrate_prod
+.PHONY: lint_fix init watch_test verify deploy migrate_prod compile build
 
 VENDOR=node_modules
 BIN=$(VENDOR)/.bin
@@ -25,7 +25,7 @@ clean:
 	rm -rf logs $(VENDOR) build
 
 $(COMPILE): src config $(VENDOR)
-	$(BIN)/tsc -p . --outDir ./$(COMPILE) && touch $(COMPILE)
+	make compile && touch $(COMPILE)
 
 watch: $(COMPILE)
 	$(BIN)/tsc -p . --outDir ./$(COMPILE) --watch --pretty & \
@@ -51,6 +51,11 @@ dev: lint_fix verify
 
 watch_test: $(VENDOR)
 	$(BIN)/jest --config jest.config.dev.js --watch
+
+build: compile
+
+compile:
+	$(BIN)/tsc -p . --outDir ./$(COMPILE)
 
 migrate_prod: $(VENDOR)
 	$(BIN)/db-migrate --config db-config.js --env prod up
