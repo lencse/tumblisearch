@@ -14,7 +14,7 @@ export default class WebServer implements Server {
         @inject(CreateSearch) private createSearch: CreateSearch
     ) {}
 
-    public init(): WebServer {
+    public init(): Server {
         this.httpServer.createSearch(this.createSearch)
         this.httpServer.staticDir('./public')
         this.httpServer.assemble()

@@ -1,23 +1,29 @@
+const _ = Symbol
+
 export const TYPES = {
-    IdGenerator: Symbol(),
-    SearchSaver: Symbol(),
-    JobSaver: Symbol(),
-    Server: Symbol(),
-    HttpServer: Symbol()
+    IdGenerator: _(),
+    SearchSaver: _(),
+    JobSaver: _(),
+    Server: _(),
+    HttpServer: _()
 }
 
 export const SCALARS = {
+
     Webserver: {
-        portNumber: Symbol()
+        portNumber: _()
     },
+
     PgConnection: {
-        dbUrl: Symbol()
+        dbUrl: _()
     },
+
     Tumblr: {
-        apiKey: Symbol()
+        apiKey: _()
     },
+
     RabbitConnection: {
-        rabbitUrl: Symbol(),
-        queueName: Symbol()
+        rabbitUrl: _(),
+        queueName: _()
     }
 }

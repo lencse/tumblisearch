@@ -15,6 +15,7 @@ import JobSaver from '../jobs/JobSaver'
 import RabbitJobSaver from '../jobs/RabbitJobSaver'
 import RabbitConnection from '../jobs/RabbitConnection'
 import Server from '../server/Server'
+import CompositeServer from '../server/CompositeServer'
 
 const container = new Container()
 
@@ -24,7 +25,13 @@ container.bind<HttpServer>(TYPES.HttpServer).to(KoaHttpServer)
 container.bind<SearchSaver>(TYPES.SearchSaver).to(PgSearchSaver)
 container.bind<IdGenerator>(TYPES.IdGenerator).to(UuidGenerator)
 container.bind<JobSaver>(TYPES.JobSaver).to(RabbitJobSaver)
-container.bind<Server>(TYPES.Server).to(WebServer)
+container.bind<Server>(TYPES.Server).toDynamicValue((ctx) => {
+    const servers: Server[] = []
+    if (config.runServer) {
+        servers.push(ctx.container.get<Server>(WebServer))
+    }
+    return new CompositeServer(servers)
+})
 
 // Classes
 
