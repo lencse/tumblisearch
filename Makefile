@@ -55,7 +55,7 @@ watch_test: $(VENDOR)
 compile:
 	$(BIN)/tsc -p . --outDir ./$(COMPILE)
 
-migrate_prod: $(VENDOR)
+migrate_prod:
 	$(BIN)/db-migrate --config db-config.js --env prod up
 
 deploy:
