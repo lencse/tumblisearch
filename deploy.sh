@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "Deploy..."
+
 if [ "$HEROKU" != "true" ] || [ "$DEPLOY_STARTED" = "true" ]; then
     exit 0
 fi
