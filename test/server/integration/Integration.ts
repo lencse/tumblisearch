@@ -11,8 +11,8 @@ describe('ServerTest', () => {
         expect(pub.status).toBe(200)
 
         const resp = await testServer.post('/api/search')
-            .send(`blogName=staff`)
-            .send(`searchText=Joo Han`)
+            .send('blogName=staff')
+            .send('searchText=Joo Han')
 
         const id = resp.body.id
 

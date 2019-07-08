@@ -10,7 +10,8 @@ const config = {
     tumblrApiKey: String(env.TUMBLR_API_KEY),
     rabbitUrl: String(env.CLOUDAMQP_URL),
     queueName: 'tumblisearch',
-    runServer: 'true' === env.RUN_SERVER.trim().toLowerCase()
+    runServer: 'true' === env.RUN_SERVER.trim().toLowerCase(),
+    runQueue: 'true' === env.RUN_QUEUE.trim().toLowerCase()
 }
 
 export default config

@@ -1,9 +1,9 @@
 import { injectable, inject } from 'inversify'
-import HttpServer from './http/HttpServer'
-import { TYPES, SCALARS } from '../dic/params'
+import HttpServer from './HttpServer'
+import { TYPES, SCALARS } from '../../dic/params'
 import 'reflect-metadata'
-import CreateSearch from '../search/CreateSearch'
-import Server from './Server'
+import CreateSearch from '../../search/CreateSearch'
+import Server from '../Server'
 
 @injectable()
 export default class WebServer implements Server {

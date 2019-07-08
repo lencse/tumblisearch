@@ -1,6 +1,6 @@
 import { Container } from 'inversify'
 import { TYPES, SCALARS } from './params'
-import WebServer from '../server/WebServer'
+import WebServer from '../server/http/WebServer'
 import KoaHttpServer from '../server/http/KoaHttpServer'
 import HttpServer from '../server/http/HttpServer'
 import CreateSearch from '../search/CreateSearch'
@@ -16,6 +16,7 @@ import RabbitJobSaver from '../jobs/RabbitJobSaver'
 import RabbitConnection from '../jobs/RabbitConnection'
 import Server from '../server/Server'
 import CompositeServer from '../server/CompositeServer'
+import Queue from '../server/queue/Queue'
 
 const container = new Container()
 
@@ -25,17 +26,11 @@ container.bind<HttpServer>(TYPES.HttpServer).to(KoaHttpServer)
 container.bind<SearchSaver>(TYPES.SearchSaver).to(PgSearchSaver)
 container.bind<IdGenerator>(TYPES.IdGenerator).to(UuidGenerator)
 container.bind<JobSaver>(TYPES.JobSaver).to(RabbitJobSaver)
-container.bind<Server>(TYPES.Server).toDynamicValue((ctx) => {
-    const servers: Server[] = []
-    if (config.runServer) {
-        servers.push(ctx.container.get<Server>(WebServer))
-    }
-    return new CompositeServer(servers)
-})
 
 // Classes
 
 container.bind<WebServer>(WebServer).to(WebServer)
+container.bind<Queue>(Queue).to(Queue)
 container.bind<CreateSearch>(CreateSearch).to(CreateSearch)
 container.bind<PgConnection>(PgConnection).to(PgConnection)
 container.bind<SearchFactory>(SearchFactory).to(SearchFactory)
@@ -48,6 +43,19 @@ container.bind<string>(SCALARS.PgConnection.dbUrl).toConstantValue(config.dbUrl)
 container.bind<string>(SCALARS.Tumblr.apiKey).toConstantValue(config.tumblrApiKey)
 container.bind<string>(SCALARS.RabbitConnection.rabbitUrl).toConstantValue(config.rabbitUrl)
 container.bind<string>(SCALARS.RabbitConnection.queueName).toConstantValue(config.queueName)
+
+// Server
+
+container.bind<Server>(TYPES.Server).toDynamicValue((ctx) => {
+    const servers: Server[] = []
+    if (config.runServer) {
+        servers.push(ctx.container.get<Server>(WebServer))
+    }
+    if (config.runQueue) {
+        servers.push(ctx.container.get<Server>(Queue))
+    }
+    return new CompositeServer(servers)
+})
 
 const dic = {
     get server(): Server {
