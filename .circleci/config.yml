@@ -62,3 +62,28 @@ jobs:
             - run: make migrate
 
             - run: make verify
+
+
+    deploy-to-staging:
+        docker:
+            - image: buildpack-deps:trusty
+        working_directory: ~/repo
+
+        steps:
+            - checkout
+            - add_ssh_keys:
+                fingerprints:
+                     - "8b:48:5e:67:0e:c9:16:47:32:f2:87:0c:1f:c8:60:ad"
+            - run:
+                name: Deploy to Heroku Staging Server
+                command: |
+                    git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME_STAGING.git master
+
+workflows:
+    version: 2
+    standard:
+        jobs:
+            - build
+            - deploy-to-staging:
+                requires:
+                    - build
