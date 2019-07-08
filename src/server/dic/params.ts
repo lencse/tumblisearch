@@ -1,8 +1,9 @@
 export const TYPES = {
-    Webserver: Symbol('Webserver'),
     IdGenerator: Symbol('IdGenerator'),
     SearchSaver: Symbol('SearchSaver'),
-    JobSaver: Symbol('JobSaver')
+    JobSaver: Symbol('JobSaver'),
+    Server: Symbol('Server'),
+    HttpServer: Symbol('HttpServer')
 }
 
 export const SCALARS = {

@@ -10,7 +10,7 @@ export default class WebServer implements Server {
 
     constructor(
         @inject(SCALARS.Webserver.portNumber) private portNumber: number,
-        @inject(TYPES.Webserver) private webserver: HttpServer,
+        @inject(TYPES.HttpServer) private webserver: HttpServer,
         @inject(CreateSearch) private createSearch: CreateSearch
     ) {}
 

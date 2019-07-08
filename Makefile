@@ -15,7 +15,7 @@ migrate: node_modules
 migrate_down: node_modules
 	$(BIN)/db-migrate down
 
-init: node_modules migrate .env
+init: .env node_modules migrate
 
 .env:
 	cp -n .env.example .env || :

@@ -14,15 +14,17 @@ import SearchFactory from '../search/SearchFactory'
 import JobSaver from '../jobs/JobSaver'
 import RabbitJobSaver from '../jobs/RabbitJobSaver'
 import RabbitConnection from '../jobs/RabbitConnection'
+import Server from '../server/Server'
 
 const container = new Container()
 
 // Interfaces
 
-container.bind<HttpServer>(TYPES.Webserver).to(KoaHttpServer)
+container.bind<HttpServer>(TYPES.HttpServer).to(KoaHttpServer)
 container.bind<SearchSaver>(TYPES.SearchSaver).to(PgSearchSaver)
 container.bind<IdGenerator>(TYPES.IdGenerator).to(UuidGenerator)
 container.bind<JobSaver>(TYPES.JobSaver).to(RabbitJobSaver)
+container.bind<Server>(TYPES.Server).to(WebServer)
 
 // Classes
 
@@ -41,8 +43,8 @@ container.bind<string>(SCALARS.RabbitConnection.rabbitUrl).toConstantValue(confi
 container.bind<string>(SCALARS.RabbitConnection.queueName).toConstantValue(config.queueName)
 
 const dic = {
-    get server(): WebServer {
-        return container.get<WebServer>(WebServer)
+    get server(): Server {
+        return container.get<Server>(TYPES.Server)
     }
 }
 
