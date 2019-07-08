@@ -4,9 +4,12 @@ import JobData from './JobData'
 import { connect, Channel } from 'amqplib'
 import { SCALARS } from '../dic/params'
 import JobSaver from './JobSaver'
+import JobPicker from './JobPicker'
+import JobRunner from './JobRunner'
+import JobFactory from './JobFactory'
 
 @injectable()
-export default class RabbitMq implements JobSaver {
+export default class RabbitMq implements JobSaver, JobPicker {
 
     private channel: Channel
 
@@ -14,6 +17,23 @@ export default class RabbitMq implements JobSaver {
         @inject(SCALARS.RabbitConnection.rabbitUrl) private rabbitUrl: string,
         @inject(SCALARS.RabbitConnection.queueName) private queueName: string
     ) {}
+
+    public async runNextJob(runner: JobRunner): Promise<void> {
+        const channel = await this.getChannel()
+        channel.prefetch(1)
+        await channel.consume(
+            this.queueName,
+            async (msg) => {
+                const jobData: JobData = JSON.parse(msg.content.toString())
+                const jobFactory = new JobFactory()
+                const job = jobFactory.createJob(jobData)
+                await job.run(runner)
+            },
+            {
+                noAck: false
+            }
+        )
+    }
 
     public async saveJob(jobData: JobData): Promise<void> {
         const channel = await this.getChannel()

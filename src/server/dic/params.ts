@@ -5,7 +5,8 @@ export const TYPES = {
     SearchSaver: _(),
     JobSaver: _(),
     Server: _(),
-    HttpServer: _()
+    HttpServer: _(),
+    JobPicker: _()
 }
 
 export const SCALARS = {

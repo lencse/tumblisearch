@@ -16,6 +16,9 @@ import RabbitMq from '../jobs/RabbitMq'
 import Server from '../server/Server'
 import CompositeServer from '../server/CompositeServer'
 import Queue from '../server/queue/Queue'
+import JobPicker from '../jobs/JobPicker'
+import JobRunner from '../jobs/JobRunner'
+import Tumblr from '../tumblr-api/Tumblr'
 
 const container = new Container()
 
@@ -25,6 +28,7 @@ container.bind<HttpServer>(TYPES.HttpServer).to(KoaHttpServer)
 container.bind<SearchSaver>(TYPES.SearchSaver).to(PgSearchSaver)
 container.bind<IdGenerator>(TYPES.IdGenerator).to(UuidGenerator)
 container.bind<JobSaver>(TYPES.JobSaver).to(RabbitMq)
+container.bind<JobPicker>(TYPES.JobPicker).to(RabbitMq)
 
 // Classes
 
@@ -33,6 +37,8 @@ container.bind<Queue>(Queue).to(Queue)
 container.bind<CreateSearch>(CreateSearch).to(CreateSearch)
 container.bind<PgConnection>(PgConnection).to(PgConnection)
 container.bind<SearchFactory>(SearchFactory).to(SearchFactory)
+container.bind<JobRunner>(JobRunner).to(JobRunner)
+container.bind<Tumblr>(Tumblr).to(Tumblr)
 
 // Scalars
 
