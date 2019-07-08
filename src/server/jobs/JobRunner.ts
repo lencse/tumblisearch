@@ -18,7 +18,7 @@ export default class JobRunner {
 
     public async getBlogInfo(job: BlogInfo): Promise<void> {
         const offsets = await this.tumblr.getPostCount(job.search.params.blogName)
-            .then((postCount) => Math.floor(postCount / 50))
+            .then((postCount) => Math.floor(postCount / 50) + 1)
             .then((slices) => range(0, slices).map((slice) => slice * 50))
 
         offsets.forEach(async (offset) => {
