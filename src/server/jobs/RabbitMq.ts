@@ -28,6 +28,7 @@ export default class RabbitMq implements JobSaver, JobPicker {
                 const jobFactory = new JobFactory()
                 const job = jobFactory.createJob(jobData)
                 await job.run(runner)
+                await channel.ack(msg)
             },
             {
                 noAck: false
