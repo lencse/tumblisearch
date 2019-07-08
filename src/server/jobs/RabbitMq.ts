@@ -3,9 +3,10 @@ import 'reflect-metadata'
 import JobData from './JobData'
 import { connect, Channel } from 'amqplib'
 import { SCALARS } from '../dic/params'
+import JobSaver from './JobSaver'
 
 @injectable()
-export default class RabbitConnection {
+export default class RabbitMq implements JobSaver {
 
     private channel: Channel
 
@@ -14,7 +15,7 @@ export default class RabbitConnection {
         @inject(SCALARS.RabbitConnection.queueName) private queueName: string
     ) {}
 
-    public async addJob(jobData: JobData): Promise<void> {
+    public async saveJob(jobData: JobData): Promise<void> {
         const channel = await this.getChannel()
         channel.assertQueue(
             this.queueName,

@@ -12,8 +12,7 @@ import IdGenerator from '../id/IdGenerator'
 import UuidGenerator from '../id/UuidGenerator'
 import SearchFactory from '../search/SearchFactory'
 import JobSaver from '../jobs/JobSaver'
-import RabbitJobSaver from '../jobs/RabbitJobSaver'
-import RabbitConnection from '../jobs/RabbitConnection'
+import RabbitMq from '../jobs/RabbitMq'
 import Server from '../server/Server'
 import CompositeServer from '../server/CompositeServer'
 import Queue from '../server/queue/Queue'
@@ -25,7 +24,7 @@ const container = new Container()
 container.bind<HttpServer>(TYPES.HttpServer).to(KoaHttpServer)
 container.bind<SearchSaver>(TYPES.SearchSaver).to(PgSearchSaver)
 container.bind<IdGenerator>(TYPES.IdGenerator).to(UuidGenerator)
-container.bind<JobSaver>(TYPES.JobSaver).to(RabbitJobSaver)
+container.bind<JobSaver>(TYPES.JobSaver).to(RabbitMq)
 
 // Classes
 
@@ -34,7 +33,6 @@ container.bind<Queue>(Queue).to(Queue)
 container.bind<CreateSearch>(CreateSearch).to(CreateSearch)
 container.bind<PgConnection>(PgConnection).to(PgConnection)
 container.bind<SearchFactory>(SearchFactory).to(SearchFactory)
-container.bind<RabbitConnection>(RabbitConnection).to(RabbitConnection)
 
 // Scalars
 
