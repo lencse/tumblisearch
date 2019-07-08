@@ -1,23 +1,23 @@
 export const TYPES = {
-    IdGenerator: Symbol('IdGenerator'),
-    SearchSaver: Symbol('SearchSaver'),
-    JobSaver: Symbol('JobSaver'),
-    Server: Symbol('Server'),
-    HttpServer: Symbol('HttpServer')
+    IdGenerator: Symbol(),
+    SearchSaver: Symbol(),
+    JobSaver: Symbol(),
+    Server: Symbol(),
+    HttpServer: Symbol()
 }
 
 export const SCALARS = {
     Webserver: {
-        portNumber: Symbol('Webserver.portNumber')
+        portNumber: Symbol()
     },
     PgConnection: {
-        dbUrl: Symbol('PgConnection.dbUrl')
+        dbUrl: Symbol()
     },
     Tumblr: {
-        apiKey: Symbol('Tumblr.apiKey')
+        apiKey: Symbol()
     },
     RabbitConnection: {
-        rabbitUrl: Symbol('RabbitConnection.rabbitUrl'),
-        queueName: Symbol('RabbitConnection.queueName')
+        rabbitUrl: Symbol(),
+        queueName: Symbol()
     }
 }
