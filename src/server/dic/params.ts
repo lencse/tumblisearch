@@ -8,16 +8,16 @@ export const TYPES = {
 
 export const SCALARS = {
     Webserver: {
-        portNumber: Symbol('portNumber')
+        portNumber: Symbol('Webserver.portNumber')
     },
     PgConnection: {
-        dbUrl: Symbol('dbUrl')
+        dbUrl: Symbol('PgConnection.dbUrl')
     },
     Tumblr: {
-        apiKey: Symbol('apiKey')
+        apiKey: Symbol('Tumblr.apiKey')
     },
     RabbitConnection: {
-        rabbitUrl: Symbol('rabbitUrl'),
-        queueName: Symbol('rabbitUrl')
+        rabbitUrl: Symbol('RabbitConnection.rabbitUrl'),
+        queueName: Symbol('RabbitConnection.queueName')
     }
 }

@@ -10,23 +10,23 @@ export default class WebServer implements Server {
 
     constructor(
         @inject(SCALARS.Webserver.portNumber) private portNumber: number,
-        @inject(TYPES.HttpServer) private webserver: HttpServer,
+        @inject(TYPES.HttpServer) private httpServer: HttpServer,
         @inject(CreateSearch) private createSearch: CreateSearch
     ) {}
 
     public init(): WebServer {
-        this.webserver.createSearch(this.createSearch)
-        this.webserver.staticDir('./public')
-        this.webserver.assemble()
+        this.httpServer.createSearch(this.createSearch)
+        this.httpServer.staticDir('./public')
+        this.httpServer.assemble()
         return this
     }
 
     public run(): void {
-        this.webserver.run(this.portNumber)
+        this.httpServer.run(this.portNumber)
     }
 
     public get webApp(): any {
-        return this.webserver.app
+        return this.httpServer.app
     }
 
 }
