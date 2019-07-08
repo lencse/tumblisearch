@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
-echo "Deploy..."
-
 if [ "$HEROKU" != "true" ] || [ "$DEPLOY_STARTED" = "true" ]; then
     exit 0
 fi
 
-echo "Build on Heroku"
+echo "**************************"
+echo "**  Build on Heroku...  **"
+echo "**************************"
+
 export DEPLOY_STARTED="true"
 
 make
