@@ -14,6 +14,7 @@ export default class RabbitMq implements JobSaver, JobPicker {
     private channel: Channel
 
     constructor(
+        @inject(JobFactory) private jobFactory: JobFactory,
         @inject(SCALARS.RabbitConnection.rabbitUrl) private rabbitUrl: string,
         @inject(SCALARS.RabbitConnection.queueName) private queueName: string
     ) {}
@@ -25,10 +26,14 @@ export default class RabbitMq implements JobSaver, JobPicker {
             this.queueName,
             async (msg) => {
                 const jobData: JobData = JSON.parse(msg.content.toString())
-                const jobFactory = new JobFactory()
-                const job = jobFactory.createJob(jobData)
-                console.info('Working on job', jobData)
-                await job.run(runner)
+                const job = this.jobFactory.createJob(jobData)
+                console.info(job.asString())
+                try {
+                    await job.run(runner)
+                } catch (err) {
+                    console.error(err)
+                    await channel.reject(msg, true)
+                }
                 await channel.ack(msg)
             },
             {

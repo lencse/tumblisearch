@@ -34,4 +34,7 @@ export default class BlogInfo implements Job {
         }
     }
 
+    public asString(): string {
+        return `INFO ${this.search.params.blogName}`
+    }
 }

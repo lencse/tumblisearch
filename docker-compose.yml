@@ -24,8 +24,3 @@ services:
 volumes:
     db-data:
         driver: local
-
-
-# docker run --rm --name tumblisearch_postgres -e POSTGRES_PASSWORD=postgres -p 6805:5432 -d postgres:latest
-
-# docker run --rm --name tumblisearch_rabbitmq -e RABBITMQ_DEFAULT_USER=rabbitmq -e RABBITMQ_DEFAULT_PASS=rabbitmq -p 5672:5672 -p 6805:5432 -v ${pwd}/docker/rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins -d rabbitmq:3-management

@@ -1,2 +1,2 @@
-web:    RUN_SERVER=true   RUN_QUEUE=false   yarn start
-queue:  RUN_SERVER=false  RUN_QUEUE=true    yarn start
+web: SERVER_TYPE=web yarn start
+queue: SERVER_TYPE=queue yarn start

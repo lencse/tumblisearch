@@ -17,10 +17,10 @@ export default class Tumblr {
         .then((apiResult) => apiResult.data.response.blog.posts)
     }
 
-    public async getPosts(blogName: string, offset: number): Promise<any> {
+    public async getPosts(blogName: string, offset: number, postCount: number): Promise<any> {
         return Axios.get(
             `https://api.tumblr.com/v2/blog/${blogName}.tumblr.com/posts`
-                + `?offset=${offset}&limit=50&api_key=${this.apiKey}`
+                + `?offset=${offset}&limit=${postCount}&api_key=${this.apiKey}`
         ).then((response) => response.data.response.posts.map((postData) => {
             if ('text' === postData.type) {
                 return {

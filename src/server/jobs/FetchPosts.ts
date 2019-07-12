@@ -7,7 +7,8 @@ export default class FetchPosts implements Job {
 
     constructor(
         private _search: Search,
-        private offset: number
+        private offset: number,
+        private postCount: number
     ) {}
 
     public get search(): Search {
@@ -15,7 +16,10 @@ export default class FetchPosts implements Job {
     }
 
     public get params(): any {
-        return { offset: this.offset}
+        return {
+            offset: this.offset,
+            postCount: this.postCount
+        }
     }
 
     public async run(runner: JobRunner): Promise<void> {
@@ -33,6 +37,13 @@ export default class FetchPosts implements Job {
             searchId: this.search.id,
             searchParams: this.search.params
         }
+    }
+
+    public asString(): string {
+        return [
+            `FETCH ${this.postCount}:${this.offset}`,
+            `[${this.search.params.blogName} "${this.search.params.searchText}"]`
+        ].join(' ')
     }
 
 }

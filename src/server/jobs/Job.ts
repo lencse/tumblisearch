@@ -11,4 +11,6 @@ export default interface Job {
 
     run(runner: JobRunner): Promise<void>
 
+    asString(): string
+
 }

@@ -14,11 +14,11 @@ import SearchFactory from '../search/SearchFactory'
 import JobSaver from '../jobs/JobSaver'
 import RabbitMq from '../jobs/RabbitMq'
 import Server from '../server/Server'
-import CompositeServer from '../server/CompositeServer'
 import Queue from '../server/queue/Queue'
 import JobPicker from '../jobs/JobPicker'
 import JobRunner from '../jobs/JobRunner'
 import Tumblr from '../tumblr-api/Tumblr'
+import JobFactory from '../jobs/JobFactory'
 
 const container = new Container()
 
@@ -39,6 +39,7 @@ container.bind<PgConnection>(PgConnection).to(PgConnection)
 container.bind<SearchFactory>(SearchFactory).to(SearchFactory)
 container.bind<JobRunner>(JobRunner).to(JobRunner)
 container.bind<Tumblr>(Tumblr).to(Tumblr)
+container.bind<JobFactory>(JobFactory).to(JobFactory)
 
 // Scalars
 
@@ -47,18 +48,17 @@ container.bind<string>(SCALARS.PgConnection.dbUrl).toConstantValue(config.dbUrl)
 container.bind<string>(SCALARS.Tumblr.apiKey).toConstantValue(config.tumblrApiKey)
 container.bind<string>(SCALARS.RabbitConnection.rabbitUrl).toConstantValue(config.rabbitUrl)
 container.bind<string>(SCALARS.RabbitConnection.queueName).toConstantValue(config.queueName)
+container.bind<number>(SCALARS.JobRunner.fetchPostCount).toConstantValue(config.fetchPostCount)
 
 // Server
 
 container.bind<Server>(TYPES.Server).toDynamicValue((ctx) => {
-    const servers: Server[] = []
-    if (config.runServer) {
-        servers.push(ctx.container.get<Server>(WebServer))
+    if ('web' === config.serverType) {
+        return ctx.container.get<Server>(WebServer)
     }
-    if (config.runQueue) {
-        servers.push(ctx.container.get<Server>(Queue))
+    if ('queue' === config.serverType) {
+        return ctx.container.get<Server>(Queue)
     }
-    return new CompositeServer(servers)
 })
 
 const dic = {

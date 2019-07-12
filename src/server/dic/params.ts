@@ -26,5 +26,10 @@ export const SCALARS = {
     RabbitConnection: {
         rabbitUrl: _(),
         queueName: _()
+    },
+
+    JobRunner: {
+        fetchPostCount: _()
     }
+
 }

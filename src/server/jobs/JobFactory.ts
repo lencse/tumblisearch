@@ -22,7 +22,8 @@ export default class JobFactory {
                     id: jobData.searchId,
                     params: jobData.searchParams
                 },
-                jobData.params.offset
+                jobData.params.offset,
+                jobData.params.postCount
             )
         }
     }
