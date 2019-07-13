@@ -29,8 +29,8 @@ $(COMPILE): src config $(VENDOR)
 
 watch: $(COMPILE)
 	$(BIN)/tsc -p . --outDir ./$(COMPILE) --watch --pretty & \
-	SERVER_TYPE=web $(BIN)/nodemon server.js &
-	SERVER_TYPE=queue $(BIN)/nodemon server.js
+	SERVER_TYPE=queue $(BIN)/nodemon server.js & \
+	SERVER_TYPE=web $(BIN)/nodemon server.js
 
 test_ts: $(VENDOR)
 	$(BIN)/jest --verbose && mv test-report.xml logs/jest
