@@ -69,13 +69,10 @@ workflows:
     standard:
         jobs:
             - build
-    deploying:
-        triggers:
-            - branches:
-                only:
-                    - master
-        jobs:
-            - build
             - deploy-to-staging:
+                filters:
+                    branches:
+                        only:
+                            - master
                 requires:
                     - build
