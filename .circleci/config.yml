@@ -70,9 +70,10 @@ workflows:
         jobs:
             - build
     deploying:
-        branches:
-            only:
-                - master
+        triggers:
+            branches:
+                 only:
+                    - master
         jobs:
             - build
             - deploy-to-staging:
