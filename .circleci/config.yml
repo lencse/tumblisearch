@@ -71,8 +71,8 @@ workflows:
             - build
     deploying:
         triggers:
-            branches:
-                 only:
+            - branches:
+                only:
                     - master
         jobs:
             - build
