@@ -56,6 +56,9 @@ jobs:
         docker:
             - image: buildpack-deps:trusty
         working_directory: ~/repo
+        branches:
+            only:
+                - master
 
         steps:
             - checkout
