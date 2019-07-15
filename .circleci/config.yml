@@ -56,9 +56,6 @@ jobs:
         docker:
             - image: buildpack-deps:trusty
         working_directory: ~/repo
-        branches:
-            only:
-                - master
 
         steps:
             - checkout
@@ -72,6 +69,12 @@ workflows:
     standard:
         jobs:
             - build
+    deploying:
+        branches:
+            only:
+                - master
+        jobs:
+            -build
             - deploy-to-staging:
                 requires:
                     - build
