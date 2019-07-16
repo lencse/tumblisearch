@@ -40,7 +40,6 @@ export default class JobRunner {
                 text: striptags(pd.text).replace(/\s+/gm, ' ')
             }
         }).filter((norm) => norm.text.match(job.params.searchText))
-        // console.info(posts)
     }
 
 }
