@@ -11,14 +11,12 @@ jobs:
                 PORT: 5600
                 DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
                 CLOUDAMQP_URL: amqp://rabbitmq:rabbitmq@localhost
-                RUN_SERVER: true
 
             - image: circleci/postgres:11-alpine
               environment:
                 POSTGRES_USER: postgres
                 POSTGRES_PASSWORD: postgres
                 POSTGRES_DB: postgres
-
 
             - image: rabbitmq:3
               hostname: 'localhost'
