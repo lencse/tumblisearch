@@ -15,8 +15,8 @@ export default class Tumblr {
             `https://api.tumblr.com/v2/blog/${blogName}.tumblr.com/info`,
             `?api_key=${this.apiKey}`
         ].join('')
-        return Axios.get(url)
-        .then((apiResult) => apiResult.data.response.blog.posts)
+        const apiResult = await Axios.get(url)
+        return apiResult.data.response.blog.posts
     }
 
     public async getPosts(blogName: string, offset: number, postCount: number): Promise<any> {
@@ -24,7 +24,8 @@ export default class Tumblr {
             `https://api.tumblr.com/v2/blog/${blogName}.tumblr.com/posts`,
             `?offset=${offset}&limit=${postCount}&api_key=${this.apiKey}`
         ].join('')
-        return Axios.get(url).then((response) => response.data.response.posts.map((postData) => {
+        const apiResult = await Axios.get(url)
+        return apiResult.data.response.posts.map((postData) => {
             if ('text' === postData.type) {
                 return {
                     url: postData.post_url,
@@ -35,7 +36,7 @@ export default class Tumblr {
                 url: '',
                 text: ''
             }
-        }))
+        })
     }
 
 }

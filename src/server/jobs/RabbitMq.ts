@@ -27,12 +27,12 @@ export default class RabbitMq implements JobSaver, JobPicker {
             async (msg) => {
                 const jobData: JobData = JSON.parse(msg.content.toString())
                 const job = this.jobFactory.createJob(jobData)
-                console.info(job.asString())
                 try {
                     await job.run(runner)
                 } catch (err) {
                     console.error(err)
                     await channel.reject(msg, true)
+                    throw err
                 }
                 await channel.ack(msg)
             },
@@ -44,11 +44,6 @@ export default class RabbitMq implements JobSaver, JobPicker {
 
     public async saveJob(jobData: JobData): Promise<void> {
         const channel = await this.getChannel()
-        console.info('Saved job', jobData)
-        channel.assertQueue(
-            this.queueName,
-            { durable: true }
-        )
         channel.sendToQueue(
             this.queueName,
             Buffer.from(JSON.stringify(jobData)),
@@ -61,6 +56,10 @@ export default class RabbitMq implements JobSaver, JobPicker {
             const connection = await connect(this.rabbitUrl)
             this.channel = await connection.createChannel()
         }
+        this.channel.assertQueue(
+            this.queueName,
+            { durable: true }
+        )
         return this.channel
     }
 

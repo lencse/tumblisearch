@@ -18,10 +18,9 @@ export default class JobRunner {
     ) {}
 
     public async getBlogInfo(job: BlogInfo): Promise<void> {
-        const offsets = await this.tumblr.getPostCount(job.search.params.blogName)
-            .then((postCount) => Math.floor(postCount / this.fetchPostCount) + 1)
-            .then((slices) => range(0, slices).map((slice) => slice * this.fetchPostCount))
-
+        const postCount = await this.tumblr.getPostCount(job.search.params.blogName)
+        const slices = Math.floor(postCount / this.fetchPostCount) + 1
+        const offsets = range(0, slices).map((slice) => slice * this.fetchPostCount)
         offsets.forEach(async (offset) => {
             const fetchPostjob = new FetchPosts(job.search, offset, this.fetchPostCount)
             await this.jobSaver.saveJob(fetchPostjob.data)
@@ -34,12 +33,13 @@ export default class JobRunner {
             job.params.offset,
             job.params.postCount
         )
-        apiResult.map((pd) => {
+        const posts = apiResult.map((pd) => {
             return {
                 url: pd.url,
                 text: striptags(pd.text).replace(/\s+/gm, ' ')
             }
         }).filter((norm) => norm.text.match(job.params.searchText))
+        console.info(posts)
     }
 
 }

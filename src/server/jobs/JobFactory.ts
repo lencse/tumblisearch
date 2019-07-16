@@ -9,7 +9,6 @@ import FetchPosts from './FetchPosts'
 export default class JobFactory {
 
     public createJob(jobData: JobData): Job {
-        // console.info('Working on job ', jobData.jobId)
         if ('blog_info' === jobData.jobType) {
             return new BlogInfo({
                 id: jobData.searchId,
@@ -26,6 +25,7 @@ export default class JobFactory {
                 jobData.params.postCount
             )
         }
+        throw new Error(`Invalid job type: '${jobData.jobType}'`)
     }
 
 }
