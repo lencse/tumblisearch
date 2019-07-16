@@ -10,8 +10,7 @@ const config = {
     tumblrApiKey: String(env.TUMBLR_API_KEY),
     rabbitUrl: String(env.CLOUDAMQP_URL),
     queueName: 'tumblisearch',
-    fetchPostCount: Number(env.FETCH_POST_COUNT),
-    serverType: String(env.SERVER_TYPE || 'web')
+    fetchPostCount: Number(env.FETCH_POST_COUNT)
 }
 
 export default config

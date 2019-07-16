@@ -29,6 +29,7 @@ container.bind<SearchSaver>(TYPES.SearchSaver).to(PgSearchSaver)
 container.bind<IdGenerator>(TYPES.IdGenerator).to(UuidGenerator)
 container.bind<JobSaver>(TYPES.JobSaver).to(RabbitMq)
 container.bind<JobPicker>(TYPES.JobPicker).to(RabbitMq)
+container.bind<Server>(TYPES.Server).to(WebServer)
 
 // Classes
 
@@ -50,21 +51,16 @@ container.bind<string>(SCALARS.RabbitConnection.rabbitUrl).toConstantValue(confi
 container.bind<string>(SCALARS.RabbitConnection.queueName).toConstantValue(config.queueName)
 container.bind<number>(SCALARS.JobRunner.fetchPostCount).toConstantValue(config.fetchPostCount)
 
-// Server
-
-container.bind<Server>(TYPES.Server).toDynamicValue((ctx) => {
-    if ('web' === config.serverType) {
-        return ctx.container.get<Server>(WebServer)
-    }
-    if ('queue' === config.serverType) {
-        return ctx.container.get<Server>(Queue)
-    }
-})
-
 const dic = {
+
     get server(): Server {
         return container.get<Server>(TYPES.Server)
+    },
+
+    get queue(): Queue {
+        return container.get<Queue>(Queue)
     }
+
 }
 
 export default dic

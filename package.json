@@ -2,7 +2,6 @@
   "name": "tumblisearch",
   "version": "1.0.0",
   "description": "Tumblr search",
-  "main": "server.js",
   "repository": "git@github.com:lencse/tumblisearch.git",
   "author": "Levente Löki <leventeloki@gmail.com>",
   "license": "MIT",
