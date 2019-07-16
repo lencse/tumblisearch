@@ -7,6 +7,7 @@ import JobSaver from './JobSaver'
 import JobPicker from './JobPicker'
 import JobRunner from './JobRunner'
 import JobFactory from './JobFactory'
+import { reject } from 'bluebird';
 
 @injectable()
 export default class RabbitMq implements JobSaver, JobPicker {
@@ -32,7 +33,7 @@ export default class RabbitMq implements JobSaver, JobPicker {
                 } catch (err) {
                     console.error(err)
                     await channel.reject(msg, true)
-                    throw err
+                    return
                 }
                 await channel.ack(msg)
             },
