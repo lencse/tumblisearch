@@ -6,7 +6,7 @@ import JobData from '../../../../src/server/jobs/JobData'
 
 describe('CreateSearch', () => {
     it('Search and job is created after the request', async () => {
-        const saver = {
+        const searchSaver = {
             search: null,
             async saveSearch(data: SearchSavingData): Promise<SearchData> {
                 this.search = data
@@ -20,7 +20,7 @@ describe('CreateSearch', () => {
             }
         }
         const handler = new CreateSearch(
-            saver,
+            searchSaver,
             {
                 generate(): string {
                     return 'TEST'
@@ -43,7 +43,7 @@ describe('CreateSearch', () => {
             blogName: 'test',
             searchText: 'search text'
         })
-        expect(saver.search).toEqual({
+        expect(searchSaver.search).toEqual({
             date: new Date('2019-01-01'),
             id: 'TEST',
             params: {
