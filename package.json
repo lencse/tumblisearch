@@ -41,7 +41,7 @@
     "coveralls": "^3.0.3",
     "db-migrate": "^0.11.5",
     "db-migrate-pg": "^1.0.0",
-    "jest": "^24.8.0",
+    "jest": "^24.9.0",
     "jest-sonar-reporter": "^2.0.0",
     "nodemon": "^1.19.1",
     "supertest": "^4.0.2",
